@@ -3,11 +3,29 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+const initialState = {
+  count: 0
+};
+
+function reducer(state = initialState, action) {
+  switch(action.type) {
+    case 'INCREMENT':
+      return {count: state.count + action.num};
+    default:
+      return state;
+  }
+}
+
+const store = createStore(reducer);
+
+const el = <Provider store={store}>
+  <App/>
+</Provider>;
+
+ReactDOM.render(el,
   document.getElementById('root')
 );
 
